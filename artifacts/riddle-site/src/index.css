@@ -5,16 +5,14 @@
 }
 
 body {
-  background: #0b0c0f;
-  color: #c8c0b8;
+  background: #0d0d0d;
+  color: #888880;
   font-family: 'Segoe UI', system-ui, sans-serif;
   min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   align-items: center;
   justify-content: center;
-  background-image: radial-gradient(ellipse at 60% 30%, rgba(20, 35, 70, 0.1) 0%, transparent 65%),
-                    radial-gradient(ellipse at 30% 80%, rgba(10, 25, 55, 0.08) 0%, transparent 60%);
 }
 
 body::after {
@@ -45,12 +43,12 @@ body::after {
   font-size: clamp(1rem, 4vw, 1.15rem);
   line-height: 1.75;
   font-style: italic;
-  color: #a89e90;
+  color: #666660;
 }
 
 .question {
   margin-top: 0.5rem;
-  color: #c8c0b8;
+  color: #777772;
   font-style: normal;
   font-size: clamp(1rem, 4vw, 1.1rem);
 }
@@ -62,10 +60,10 @@ form {
 }
 
 input {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
   border-radius: 6px;
-  color: #d4ccc4;
+  color: #888880;
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: clamp(0.95rem, 4vw, 1rem);
   padding: 0.75rem 1rem;
@@ -77,21 +75,21 @@ input {
 }
 
 input:focus {
-  border-color: rgba(160, 100, 200, 0.25);
-  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 input.error {
-  border-color: rgba(160, 50, 50, 0.4);
+  border-color: rgba(120, 60, 60, 0.35);
 }
 
 .wrong {
-  color: #7a3535;
+  color: #5a3535;
   font-size: 0.88rem;
 }
 
 .correct {
-  color: #7a9a7a;
+  color: #5a6e5a;
   font-style: italic;
   font-size: 1rem;
 }
@@ -105,10 +103,10 @@ input.error {
 }
 
 .hint-btn {
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
   border-radius: 5px;
-  color: rgba(180, 185, 200, 0.45);
+  color: rgba(140, 140, 135, 0.5);
   font-size: 0.8rem;
   cursor: pointer;
   padding: 0.4rem 0.9rem;
@@ -118,13 +116,13 @@ input.error {
 }
 
 .hint-btn:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.13);
-  color: rgba(180, 185, 200, 0.7);
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: rgba(140, 140, 135, 0.75);
 }
 
 .hint-text {
-  color: rgba(150, 160, 190, 0.45);
+  color: rgba(120, 120, 115, 0.5);
   font-size: 0.82rem;
   font-style: italic;
 }
