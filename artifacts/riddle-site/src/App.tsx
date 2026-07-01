@@ -20,7 +20,7 @@ export default function App() {
       <div className="riddle">
         <p>Start with something that grows underground.</p>
         <p>Repeat it.</p>
-        <p>Finish with the numbers related to astronomy, the seasons, and nine cats' lives.</p>
+        <p>finish with numbers related to astronomy, the seasons, and n cats lives</p>
         <p className="question">What am I?!?</p>
       </div>
 
