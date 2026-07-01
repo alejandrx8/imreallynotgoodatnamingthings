@@ -5,6 +5,7 @@ const CORRECT_ANSWER = "potatopotato849";
 export default function App() {
   const [answer, setAnswer] = useState("");
   const [status, setStatus] = useState<"idle" | "wrong" | "correct">("idle");
+  const [hintVisible, setHintVisible] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,6 +44,13 @@ export default function App() {
       ) : (
         <p className="correct">Correct.</p>
       )}
+
+      <div className="hint-area">
+        <button className="hint-btn" onClick={() => setHintVisible(v => !v)}>
+          🍄‍🟫 hint 🍄‍🟫
+        </button>
+        {hintVisible && <p className="hint-text">ask me lol I'll give u the hint</p>}
+      </div>
     </div>
   );
 }
