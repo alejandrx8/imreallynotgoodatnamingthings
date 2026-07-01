@@ -60,14 +60,13 @@ form {
 }
 
 input {
-  background: none;
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
   color: #777772;
   font-family: 'Segoe UI', system-ui, sans-serif;
   font-size: clamp(0.95rem, 4vw, 1rem);
-  padding: 0.5rem 0.25rem;
+  padding: 0.65rem 1rem;
   outline: none;
   width: 100%;
   text-align: center;
