@@ -1,0 +1,418 @@
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0a0708;
+  --surface: #120d10;
+  --surface-2: #1c1318;
+  --border: rgba(180, 120, 60, 0.22);
+  --border-glow: rgba(200, 140, 70, 0.45);
+  --gold: #c8923a;
+  --gold-light: #e8b860;
+  --gold-dim: #7a5520;
+  --parchment: #d4b896;
+  --parchment-dim: #8a7055;
+  --crimson: #8b1a1a;
+  --crimson-bright: #c0392b;
+  --green: #2a5c3a;
+  --green-bright: #3d8c56;
+  --text: #c8b49a;
+  --text-dim: #7a6855;
+  --fog: rgba(30, 15, 25, 0.7);
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Crimson Text', Georgia, serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── Page Layout ─── */
+.page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(80, 20, 10, 0.45) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 80% at 50% 100%, rgba(20, 5, 30, 0.6) 0%, transparent 70%),
+    var(--bg);
+}
+
+/* ─── Fog layers ─── */
+.fog {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.fog-1 {
+  background: radial-gradient(ellipse 120% 40% at 30% 80%, rgba(60, 10, 80, 0.18) 0%, transparent 70%);
+  animation: drift1 18s ease-in-out infinite alternate;
+}
+.fog-2 {
+  background: radial-gradient(ellipse 100% 35% at 70% 20%, rgba(10, 30, 60, 0.15) 0%, transparent 70%);
+  animation: drift2 22s ease-in-out infinite alternate;
+}
+@keyframes drift1 {
+  from { transform: translateX(-6%) translateY(0); }
+  to   { transform: translateX(6%) translateY(-4%); }
+}
+@keyframes drift2 {
+  from { transform: translateX(5%) translateY(0); }
+  to   { transform: translateX(-5%) translateY(5%); }
+}
+
+/* ─── Floating particles ─── */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: var(--gold);
+  opacity: 0;
+  left: calc(var(--i, 0) * 4.2% + 2%);
+  bottom: -10px;
+  animation: rise calc(8s + var(--i, 0) * 0.6s) ease-in infinite;
+  animation-delay: calc(var(--i, 0) * 0.9s);
+}
+@keyframes rise {
+  0%   { opacity: 0; transform: translateY(0) scale(1); }
+  10%  { opacity: 0.6; }
+  80%  { opacity: 0.2; }
+  100% { opacity: 0; transform: translateY(-100vh) scale(0.3) translateX(calc(sin(var(--i, 0)) * 40px)); }
+}
+
+/* ─── Container ─── */
+.container {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* ─── Candles ─── */
+.candle-row {
+  display: flex;
+  gap: 3.5rem;
+  align-items: flex-end;
+  margin-bottom: -0.5rem;
+}
+.candle {
+  position: relative;
+  display: inline-block;
+  width: 10px;
+  height: 38px;
+  background: linear-gradient(to bottom, #e8d5a0 0%, #c8b060 60%, #8a7030 100%);
+  border-radius: 2px 2px 0 0;
+}
+.candle::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 18px;
+  background: radial-gradient(ellipse at 50% 100%, #fff8d0 0%, #ffcc44 40%, #ff8800 70%, transparent 100%);
+  border-radius: 50% 50% 30% 30%;
+  animation: flicker 1.8s ease-in-out infinite alternate;
+  filter: blur(0.5px);
+}
+.candle::after {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 8px;
+  background: #2a1a00;
+  border-radius: 1px;
+}
+.candle:nth-child(2) .candle::before,
+.candle-row .candle:nth-child(2)::before {
+  animation-duration: 2.1s;
+  animation-delay: 0.3s;
+}
+.candle-row .candle:nth-child(3)::before {
+  animation-duration: 1.5s;
+  animation-delay: 0.7s;
+}
+@keyframes flicker {
+  0%   { transform: translateX(-50%) scaleX(1) scaleY(1) rotate(-1deg); opacity: 0.9; }
+  25%  { transform: translateX(-50%) scaleX(0.9) scaleY(1.1) rotate(1deg); opacity: 1; }
+  50%  { transform: translateX(-50%) scaleX(1.05) scaleY(0.95) rotate(-0.5deg); opacity: 0.85; }
+  75%  { transform: translateX(-50%) scaleX(0.95) scaleY(1.05) rotate(1.5deg); opacity: 1; }
+  100% { transform: translateX(-50%) scaleX(1) scaleY(0.98) rotate(-1deg); opacity: 0.92; }
+}
+
+/* ─── Header ─── */
+header {
+  text-align: center;
+}
+.title {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: clamp(2.4rem, 7vw, 3.8rem);
+  color: var(--gold-light);
+  text-shadow:
+    0 0 20px rgba(200, 140, 50, 0.6),
+    0 0 60px rgba(200, 100, 20, 0.25);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+.skull {
+  font-size: 0.75em;
+  opacity: 0.75;
+  vertical-align: middle;
+}
+.ornament {
+  color: var(--gold-dim);
+  font-size: 0.9rem;
+  letter-spacing: 0.5em;
+  margin-top: 0.4rem;
+  opacity: 0.7;
+}
+
+/* ─── Scroll Card ─── */
+.scroll-card {
+  width: 100%;
+  background:
+    linear-gradient(135deg, rgba(28, 18, 22, 0.96) 0%, rgba(18, 10, 14, 0.98) 100%);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2.5rem 2.8rem 2.8rem;
+  box-shadow:
+    0 0 0 1px rgba(80, 40, 10, 0.1),
+    0 0 40px rgba(0, 0, 0, 0.8),
+    0 0 80px rgba(100, 40, 0, 0.1),
+    inset 0 0 60px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+.scroll-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 28px,
+      rgba(180, 120, 60, 0.03) 28px,
+      rgba(180, 120, 60, 0.03) 29px
+    );
+  pointer-events: none;
+}
+.scroll-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-dim), var(--gold), var(--gold-dim), transparent);
+  opacity: 0.6;
+}
+
+/* ─── Riddle Text ─── */
+.riddle-text {
+  min-height: 10rem;
+  margin-bottom: 2rem;
+}
+.riddle-line {
+  font-size: clamp(1.15rem, 2.5vw, 1.35rem);
+  line-height: 1.85;
+  color: var(--parchment);
+  font-style: italic;
+  text-shadow: 0 0 12px rgba(180, 120, 60, 0.15);
+  min-height: 1.85em;
+}
+.riddle-line.spacer {
+  min-height: 0.6em;
+}
+.cursor {
+  display: inline-block;
+  color: var(--gold);
+  animation: blink 0.8s step-end infinite;
+  margin-left: 1px;
+}
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ─── Answer Form ─── */
+.answer-form {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.answer-form.hidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+.answer-form.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.answer-form.shake {
+  animation: shake 0.55s ease;
+}
+@keyframes shake {
+  0%   { transform: translateX(0); }
+  18%  { transform: translateX(-7px); }
+  36%  { transform: translateX(7px); }
+  54%  { transform: translateX(-5px); }
+  72%  { transform: translateX(5px); }
+  90%  { transform: translateX(-2px); }
+  100% { transform: translateX(0); }
+}
+
+.answer-label {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--parchment-dim);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.04em;
+}
+.input-row {
+  display: flex;
+  gap: 0;
+}
+.answer-input {
+  flex: 1;
+  background: rgba(8, 5, 10, 0.8);
+  border: 1px solid var(--border);
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+  color: var(--parchment);
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1.15rem;
+  padding: 0.75rem 1rem;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  caret-color: var(--gold);
+}
+.answer-input::placeholder {
+  color: var(--text-dim);
+  font-style: italic;
+}
+.answer-input:focus {
+  border-color: var(--border-glow);
+  box-shadow: 0 0 0 2px rgba(200, 140, 60, 0.12), inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+.answer-input.error {
+  border-color: rgba(180, 40, 40, 0.6);
+  box-shadow: 0 0 0 2px rgba(180, 40, 40, 0.12);
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, rgba(100, 55, 15, 0.8), rgba(60, 30, 5, 0.9));
+  border: 1px solid var(--gold-dim);
+  border-radius: 0 3px 3px 0;
+  color: var(--gold-light);
+  font-size: 1.3rem;
+  padding: 0.75rem 1.25rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.2s;
+  line-height: 1;
+}
+.submit-btn:hover {
+  background: linear-gradient(135deg, rgba(140, 75, 20, 0.9), rgba(90, 45, 8, 0.9));
+  box-shadow: 0 0 15px rgba(200, 140, 60, 0.25);
+}
+.submit-btn:active {
+  transform: scale(0.97);
+}
+
+.feedback {
+  margin-top: 0.75rem;
+  font-size: 0.98rem;
+  font-style: italic;
+}
+.feedback.wrong {
+  color: #b04040;
+  text-shadow: 0 0 10px rgba(180, 40, 40, 0.3);
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Success State ─── */
+.success-card {
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+  animation: revealSuccess 0.8s ease;
+}
+@keyframes revealSuccess {
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.success-symbol {
+  font-size: 2.5rem;
+  color: var(--gold-light);
+  text-shadow: 0 0 30px rgba(200, 180, 80, 0.8), 0 0 60px rgba(200, 140, 40, 0.4);
+  animation: pulse-glow 2s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+@keyframes pulse-glow {
+  0%, 100% { text-shadow: 0 0 30px rgba(200, 180, 80, 0.8), 0 0 60px rgba(200, 140, 40, 0.4); }
+  50%       { text-shadow: 0 0 50px rgba(220, 200, 100, 1), 0 0 100px rgba(220, 160, 60, 0.6); }
+}
+.success-title {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+  color: var(--gold-light);
+  font-style: italic;
+  text-shadow: 0 0 20px rgba(200, 150, 60, 0.5);
+  margin-bottom: 0.6rem;
+}
+.success-sub {
+  color: var(--parchment-dim);
+  font-size: 1.05rem;
+  font-style: italic;
+}
+.answer-reveal {
+  color: var(--gold);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+/* ─── Footer ─── */
+.footer {
+  text-align: center;
+  opacity: 0.35;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 500px) {
+  .scroll-card {
+    padding: 1.8rem 1.4rem 2rem;
+  }
+  .candle-row {
+    gap: 2.2rem;
+  }
+}
