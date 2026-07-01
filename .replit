@@ -1,4 +1,4 @@
-modules = ["nodejs-24"]
+modules = ["nodejs-20", "web", "bash"]
 
 [deployment]
 router = "application"
@@ -29,13 +29,16 @@ outputType = "webview"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "PORT=25812 BASE_PATH=/ pnpm --filter @workspace/riddle-site run dev"
-waitForPort = 25812
+args = "PORT=5000 BASE_PATH=/ pnpm --filter @workspace/riddle-site run dev"
+waitForPort = 5000
 
 [agent]
-stack = "PNPM_WORKSPACE"
+stack = "BEST_EFFORT_FALLBACK"
 expertMode = true
 
 [postMerge]
 path = "scripts/post-merge.sh"
 timeoutMs = 20000
+
+[nix]
+channel = "stable-25_05"
