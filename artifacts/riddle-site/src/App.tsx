@@ -33,7 +33,7 @@ export default function App() {
               setAnswer(e.target.value);
               if (status === "wrong") setStatus("idle");
             }}
-            placeholder="Your answer…"
+            placeholder=""
             className={status === "wrong" ? "error" : ""}
             autoComplete="off"
             spellCheck={false}

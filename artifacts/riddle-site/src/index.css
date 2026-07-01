@@ -7,11 +7,20 @@
 body {
   background: #0d0d0d;
   color: #c8c0b8;
-  font-family: Georgia, serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.85) 100%);
+  z-index: 10;
 }
 
 .page {
@@ -21,6 +30,9 @@ body {
   max-width: 520px;
   width: 100%;
   padding: 2rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
 
 .riddle {
